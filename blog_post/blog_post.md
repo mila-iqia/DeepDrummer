@@ -63,9 +63,26 @@ Briefly describe the dataset that we're publishing, and give the download link. 
 
 # Running the code
 
-Reproducing the experiment.
+The interactive experiment that we ran with DeepDrummer can be reproduced
+by running everything in a Docker container and connecting to it through
+a web browser (preferably Chrome).
 
-Starting from pre-trained model.
+## GPU or CPU
+
+It is better to run the Docker container on a machine with an Nvidia GPU,
+but the computational load is rather light so it does not require a powerful GPU.
+It runs also fine on CPU only, but this can add delays and unresponsiveness
+in the interaction through the web browser.
+In practice, we found that [TODO : essayer l'expérience pour voir et pour
+pouvoir dire à quel point c'est raisonnable ou pas du tout].
+
+## Build and run the Docker container
+
+[TODO : S'assurer qu'on expose bien les données à la fin en permettant de les télécharger.]
+
+## Starting from pre-trained model
+
+[TODO : Cette section ne sera peut-être pas incluse.]
 
 # Links
 
@@ -73,10 +90,3 @@ Reminder about links for arXiv, github, youtube and dataset, even though the lin
 
 bibtex to cite us
 
-3
-2
-1
-
-Je viens de penser à quelque chose. Je regardais les folders dans ISMIR2020 et j'ai constaté qu'on avait encore un setup avec "deepgroove" dans la structure.
-
-The DeepDrummer experiment was run on a computer with a INSERTBRAND GPU, which is way more computational power than necessary.
