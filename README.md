@@ -1,4 +1,6 @@
-# DeepGroove
+# DeepDrummer
+
+DeepDrummer is a drum machine that uses a deep learning model to generate drum loops. The model is trained interactively based on user ratings (like/dislike), and tries to approximate user preferences. It is a tool for quickly exploring new musical ideas.
 
 **TODO: bibtex to cite the ISMIR2020 paper**
 ```
