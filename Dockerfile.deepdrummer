@@ -1,0 +1,37 @@
+# TODO : Maybe start from pytorch/pytorch instead of ubuntu because torch can be much faster this way.
+# TODO : Right now this is in a funny state because of the "deepgroove" everywhere
+#        and the two different repos. When it stabilizes, then you can create the dockerfile properly.
+
+FROM ubuntu:18.04
+
+# docker build -f Dockerfile.deepdrummer_web_experiment -t deepdrummer_web_experiment ${HOME}/Documents/code/meta_deepgroove
+# docker run -it deepdrummer_web_experiment /bin/bash
+
+RUN apt-get update
+
+RUN apt-get install -y python3-pip libsndfile1-dev
+RUN pip3 install gunicorn
+
+# This will be updated eventually when we provide a public link
+# for our DeepDrummer experiment. Instead of copying those
+# two absolute paths, we'll just have a single path with everything,
+# and we'll adjust this Docker build file.
+COPY ./deepgroove_user_exp /var/local/src/deepgroove_user_exp
+COPY ./DeepGroove /var/local/src/DeepGroove
+
+RUN pip3 install /var/local/src/DeepGroove
+RUN pip3 install /var/local/src/deepgroove_user_exp
+
+# Put this back once you're sure that you're not going to cause conflicts.
+# EXPOSE 5000
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+ENV FLASK_APP=deepgroove_web_user_experiment.deepgroove_web_user_experiment
+ENV FLASK_DEBUG=1
+ENV FLASK_RUN_PORT=8080
+
+# We'll set up something later so that this runs automatically,
+# but right now it's very convenient to leave it like that for debugging.
+
+# bash /var/local/src/deepgroove_user_exp/start_test_server.sh
