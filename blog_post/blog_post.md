@@ -11,7 +11,7 @@ The critic network takes a drum loop's raw audio preprocessed as MFCC features, 
 
 [Maybe put a sketch here with the 3 components? The kind of thing you wouldn't put in a scientific paper, but would ?put on a web site to keep people entertained while reading.]
 
-The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered.
+The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered. [Maybe put a sketch here too with the sequencer grid?]
 We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure.
 
 Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. As a result, the interface will present only the most relevant drum loops to the user for rating.
@@ -24,12 +24,36 @@ EMBED YOUTUBE VIDEO HERE.
 
 # Experiment
 
-We ran an experiment with 25 participants in which we
+We ran an experiment with 25 participants to demonstrate that DeepDrummer
+that meaningful gains are made with only 80 interactions (binary *like* or *dislike*).
+For each user we are interested in the proportion of drum loops that are *liked* at the beginning
+(no training) versus at the end (after 80 ratings plus training).
+We call these quantities `init_theta[i]` and `final_theta[i]` for user i.
+We also look at `delta_theta[i] = final_theta[i] - init_theta[i]`,
+which corresponds to the actual improvement for that user.
 
+In the following plot we compare the distributions of `init_theta` and `final_theta`,
+using smoothing kernel to represent the pdfs (i.e. it's just a smoothed histogram).
+We can visually see that there was a general measurable improvement of the quality
+of the drum loops over the interactions with the user.
 
-Explain the experiment without spending too much time on details.
+<img src="images/distribution_user_probabilities_of_like_0.07.png" alt="init theta and final theta" width="500"/>
 
-Show the figures with the results.
+We can look at the individual differences `delta_theta[i]` as well
+to see the improvements for each users.
+
+<img src="images/distribution_delta_0.04.png" alt="delta theta" width="500"/>
+
+In terms of actual experimental protocol, we had to split our experiment
+into an interactive Phase I where learning took place, and an evaluation Phase II
+during which we presented the user with drum loops for either init/final model at random.
+This was done to compensate for possible shifts in the
+attitude of the users, to make sure that our measurements were not
+going to be biased positively (or negatively) by the possibility
+that users might tend to rate drum loops higher (or lower) on average after
+10 minutes of clicking. More on this can be found in our paper.
+
+# Fun samples
 
 Show best/worse samples from participants, and some of our own favorites.
 
