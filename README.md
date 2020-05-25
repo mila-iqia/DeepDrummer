@@ -22,3 +22,8 @@ git clone git@github.com:mila-iqia/DeepDrummer.git
 cd DeepDrummer
 pip3 install -e .
 ```
+
+Running the standalone GUI application:
+```
+python3 -m deepdrummer.standalone
+```
