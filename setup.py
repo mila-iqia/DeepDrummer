@@ -14,8 +14,7 @@ setup(
         'torchaudio',
         'six',
         'soundfile',
-        'tkinter',
-        'sounddevice'
+        'sounddevice',
         'scipy',
         'matplotlib'
     ]
