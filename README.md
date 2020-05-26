@@ -10,12 +10,13 @@ bibtex
 Dependencies:
 - Python 3.6+
 - PyTorch 1.0+
-- tkinter
+- torchaudio
+- soundfile
+- sounddevice
 - NumPy
 - matplotlib
 - scipy
-- soundfile
-- sounddevice
+- tkinter
 
 Installation:
 
