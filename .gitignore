@@ -1,13 +1,10 @@
-/*.wav
-/*.mp3
-acidnet*
-acidtest*
-
 # DeepDrummer save data
 /save_data*
 
-# Human evaluation data
-/human_eval*
+# Web server
+access_log.txt
+/deepdrummer/webserver/static/data/
+/deepdrummer/webserver/static/clips/*.wav
 
 # Stupid Apple stuff
 *.DS_Store

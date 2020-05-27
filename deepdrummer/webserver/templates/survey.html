@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>DeepDrummer Experiment</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel='shortcut icon' type='image/png' href='/static/assets/shortcut.png'>
+        <script>
+            function contentLoaded()
+            {
+                let survey_form = document.getElementById("survey_form");
+                let btn_finish = document.getElementById("btn_finish");
+                let submitted = false;
+
+                survey_form.onsubmit = function (evt)
+                {
+                    if (submitted)
+                    {
+                        console.log('Form already submitted, prevent form submission');
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        btn_finish.blur();
+                        return;
+                    }
+
+                    btn_finish.style.background = '#777';
+
+                    // Track that the form was submitted
+                    submitted = true;
+                }
+            }
+
+            window.addEventListener("DOMContentLoaded", contentLoaded);
+        </script>
+    </head>
+    <body>
+        <h1>DeepDrummer Experiment</h1>
+        <h2>Step 5/5: A Few Questions</h2>
+
+        <div class="contents">
+
+            <form id="survey_form" action="{{ url_for('survey') }}" method=post>
+                <p>
+                You're almost done. Please answer a few last questions
+                to give us your feedback about the experiment.
+                </p>
+
+                <p>
+                How would you rate your own musical ability/background?
+                </p>
+
+                <p>
+                <input type="radio" name="musical_ability" value="1">
+                <label for="musical_ability">1: No music knowledge whatsoever</label><br>
+                <input type="radio" name="musical_ability" value="2">
+                <label for="musical_ability">2</label><br>
+                <input type="radio" name="musical_ability" value="3">
+                <label for="musical_ability">3</label><br>
+                <input type="radio" name="musical_ability" value="4">
+                <label for="musical_ability">4</label><br>
+                <input type="radio" name="musical_ability" value="5">
+                <label for="musical_ability">5: Music student level</label>
+                </p>
+
+                <p>
+                Overall, do you think that DeepDrummer would be a useful tool
+                in the creative process (i.e. for exploring musical ideas)?
+                </p>
+
+                <p>
+                <input type="radio" name="deepdrummer_useful" value="1">
+                <label for="deepdrummer_useful">1: Not at all</label><br>
+                <input type="radio" name="deepdrummer_useful" value="2">
+                <label for="deepdrummer_useful">2</label><br>
+                <input type="radio" name="deepdrummer_useful" value="3">
+                <label for="deepdrummer_useful">3</label><br>
+                <input type="radio" name="deepdrummer_useful" value="4">
+                <label for="deepdrummer_useful">4</label><br>
+                <input type="radio" name="deepdrummer_useful" value="5">
+                <label for="deepdrummer_useful">5: Definitely</label>
+                </p>
+
+                <p>In a few words, explain what makes a good drum loop in your opinion:
+                <textarea name="criteria" rows=4, cols=60></textarea>
+                </p>
+
+                <p>Please feel free to share any other comments here (optional):
+                <textarea name="comments" rows=4, cols=60></textarea>
+                </p>
+
+                <p>
+                <input id="btn_finish" type="submit" value="Finish!">
+                </p>
+
+            </form>
+
+            <p style="color: red; font-weight: bold;">
+                {{ error_string }}
+            </p>
+
+        </div>
+    </body>
+</html>

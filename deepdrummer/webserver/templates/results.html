@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>DeepDrummer experiment</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel='shortcut icon' type='image/png' href='/static/assets/shortcut.png'>
+    </head>
+    <body>
+        <h1>DeepDrummer Experiment</h1>
+        <h2>Your Results</h2>
+
+        <div class="contents">
+            <p>
+            Here are your phase 2 ratings for each model. The number
+            associated with each model corresponds to the number of phase 1
+            ratings this model was trained with. This page is for testing
+            purposes only, and won't be shown to people going through the
+            experiment.
+            </p>
+
+            <ol>
+            {%for model_count, num_pos, num_total in model_ratings %}
+                <li>Model trained with {{ model_count }} ratings: <b>{{ num_pos }} / {{ num_total }}</b> rated good</li>
+            {%endfor%}
+            </ol>
+
+            <p>Analysis results:</p>
+            <p style="font-family: monospace">
+            {% for key, value in results.items() %}
+                {{ key }}: {{ value }}<br>
+            {%endfor%}
+            </p>
+
+            <p>
+            <img src="{{ hist_url }}" width="95%">
+            </p>
+
+            <p>
+            Click <a href="{{ json_url }}">here</a> to download your raw JSON data.
+            </p>
+        </div>
+
+    </body>
+</html>

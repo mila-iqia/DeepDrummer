@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>DeepDrummer Experiment</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel='shortcut icon' type='image/png' href='/static/assets/shortcut.png'>
+    </head>
+    <body>
+        <h1>DeepDrummer Experiment</h1>
+        <h2>Step 1/5: Welcome to DeepDrummer!</h2>
+
+        <div class="contents">
+            <p>
+            <img src="/static/assets/deepdrummer_splash_150.png" width="100%">
+            </p>
+
+            <form action="{{ url_for('register') }}" method=post>
+                <p>
+                    To begin, please enter your e-mail address in the box below:
+                <p>
+                    <input type="text" name="user_email" size="32">
+                    <input type="submit" value="Start">
+                </p>
+            </form>
+
+            <p style="color: red; font-weight: bold;">
+                {{ error_string }}
+            </p>
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>DeepDrummer experiment</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel='shortcut icon' type='image/png' href='/static/assets/shortcut.png'>
+        <script>
+            function contentLoaded()
+            {
+                console.log('window.onload');
+
+                let rating_form = document.getElementById("rating_form");
+                let trial_text = document.getElementById("trial_text");
+                let btn_good = document.getElementById("btn_good");
+                let btn_bad = document.getElementById("btn_bad");
+                let audio = document.getElementById("audio");
+
+                let played = false;
+                let submitted = false;
+
+                audio.onplay = function()
+                {
+                    console.log('Audio played');
+                    played = true;
+                    audio.blur();
+                }
+
+                rating_form.onsubmit = function (evt)
+                {
+                    if (!played)
+                    {
+                        console.log('Audio not played, prevent form submission');
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        btn_good.blur();
+                        btn_bad.blur();
+                        return;
+                    }
+
+                    if (submitted)
+                    {
+                        console.log('Form already submitted, prevent form submission');
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        btn_good.blur();
+                        btn_bad.blur();
+                        return;
+                    }
+
+                    btn_good.style.background = '#777';
+                    btn_bad.style.background = '#777';
+                    trial_text.innerHTML = '... loading next trial ...'
+
+                    audio.pause();
+
+                    // Track that the form was submitted
+                    submitted = true;
+                }
+
+                // Start playback when the spacebar is pressed
+                window.onkeydown = function (evt)
+                {
+                    if (evt.key == ' ')
+                        audio.play();
+                }
+            }
+
+            window.addEventListener("DOMContentLoaded", contentLoaded);
+        </script>
+    </head>
+    <body>
+        <h1>DeepDrummer Experiment</h1>
+        <h2>{{ step_name }}</h2>
+
+        <div class="contents">
+            <p>
+            Please listen to the audio clip below and give your appreciation
+            by clicking one of the two buttons labeled "like" or "dislike".
+            The system is learning to make beats from scratch, some of what
+            you will hear may seem random and terrible, and it's ok to dislike it.
+            Like means: this sounds good, interesting or at least okay. I want more like this.
+            Dislike means: this sounds bad, annoying or not musical, I want less like this.
+            Pressing the spacebar will play the audio.
+            </p>
+
+            <div align="center">
+                <p id="trial_text">Trial: {{ trial }}</p>
+                <audio id="audio" controls>
+                    <source src="{{ clip_url }}" align="center" type="audio/wav">
+                    Your browser does not support the audio element.
+                    Please use Firefox or Chrome.
+                </audio>
+            </div>
+            <form id="rating_form" align="center" action="{{ url_for('trial') }}" method="post">
+                <input type="hidden" name="id" value="{{ clip_id }}">
+                <div style="margin: 6px; text-align: center">
+                    <input id="btn_good" type="submit" name="rating" value="like" name="like" style="margin: 6px; margin-right: 8px; font-size: 18px; background: #0F0;">
+                    <input id="btn_bad" type="submit" name="rating" value="dislike" name="dislike" style="margin: 6px; margin-right: 8px; font-size: 18px; background: #F00;">
+                </div>
+            </form>
+
+            <p><b>If you encounter technical difficulties, please contact<br>
+            maxime.chevalier-boisvert@mila.quebec
+            </b></p>
+        </div>
+
+    </body>
+</html>
