@@ -1,0 +1,30 @@
+
+FROM ubuntu:18.04
+
+# docker build -f Dockerfile.deepdrummer_standalone -t deepdrummer_standalone ${HOME}/Documents/code/DeepDrummer
+# docker run -it -p 5920:5920 -e PULSE_SERVER=docker.for.mac.localhost -v ${HOME}/.config/pulse:/home/pulseaudio/.config/pulse deepdrummer_standalone bash /var/local/src/DeepDrummer/run_deepdrummer_standalone_inside_docker.sh
+
+RUN apt-get update
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y python3-pip libsndfile1-dev git wget python3-pip xvfb x11vnc libasound-dev libportaudio2 python3-tk
+RUN pip3 install gunicorn sounddevice soundfile
+
+# These are the dependencies for the DeepDrummer package. Might as well enumerate them
+# and install them here to save ourselves the 5-10 minute docker build process each time.
+RUN pip3 install numpy torch torchaudio six soundfile sounddevice scipy matplotlib
+
+COPY . /var/local/src/DeepDrummer
+
+RUN pip3 install /var/local/src/DeepDrummer
+
+ENV PULSE_SERVER=docker.for.mac.localhost
+
+# Expose the vnc port.
+EXPOSE 5920
+
+# bash /var/local/src/DeepDrummer/run_deepdrummer_standalone_inside_docker.sh
+# python3 -m deepdrummer.standalone

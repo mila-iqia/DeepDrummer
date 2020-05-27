@@ -9,8 +9,9 @@ FROM ubuntu:18.04
 
 RUN apt-get update
 
-RUN apt-get install -y python3-pip libsndfile1-dev
-RUN pip3 install gunicorn
+RUN apt-get install -y python3-pip libsndfile1-dev libasound-dev libportaudio2 dnspython
+RUN pip3 install gunicorn sounddevice soundfile
+
 
 # This will be updated eventually when we provide a public link
 # for our DeepDrummer experiment. Instead of copying those
