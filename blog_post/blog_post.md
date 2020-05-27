@@ -9,12 +9,27 @@ DeepDrummer is composed of three main components:
 
 The critic network takes a drum loop's raw audio preprocessed as MFCC features, and then applies successive layers of convolutions in order to finally output its prediction about the probability that the user will *like* the drum loop.
 
-[Maybe put a sketch here with the 3 components? The kind of thing you wouldn't put in a scientific paper, but would ?put on a web site to keep people entertained while reading.]
+<div style="width:400px;">
 
-The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered. [Maybe put a sketch here too with the sequencer grid?]
+![DeepDrummer critic neural network](images/critic_model_diagram.png)
+</div>
+
+The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered.
+
+<div style="width:400px;">
+
+![DeepDrummer generator sequence grid](images/deepdrummer-16-step-pattern.png)
+</div>
+
 We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure.
 
 Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. As a result, the interface will present only the most relevant drum loops to the user for rating.
+
+<div style="width:200px;">
+
+![Interface for web experiment](images/traced_screencap_likedislike.png)
+</div>
+
 
 We show a demonstration of all the pieces working together in the following YouTube video.
 
