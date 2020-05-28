@@ -7,6 +7,7 @@ setup(
     version='1.0',
     packages=[
         'deepdrummer',
+        'deepdrummer.webserver',
     ],
     install_requires=[
         'numpy',

@@ -4,35 +4,24 @@
 
 FROM ubuntu:18.04
 
-# docker build -f Dockerfile.deepdrummer_web_experiment -t deepdrummer_web_experiment ${HOME}/Documents/code/meta_deepgroove
-# docker run -it deepdrummer_web_experiment /bin/bash
-
-RUN apt-get update
-
-RUN apt-get install -y python3-pip libsndfile1-dev libasound-dev libportaudio2 dnspython
-RUN pip3 install gunicorn sounddevice soundfile
-
-
-# This will be updated eventually when we provide a public link
-# for our DeepDrummer experiment. Instead of copying those
-# two absolute paths, we'll just have a single path with everything,
-# and we'll adjust this Docker build file.
-COPY ./deepgroove_user_exp /var/local/src/deepgroove_user_exp
-COPY ./DeepGroove /var/local/src/DeepGroove
-
-RUN pip3 install /var/local/src/DeepGroove
-RUN pip3 install /var/local/src/deepgroove_user_exp
-
-# Put this back once you're sure that you're not going to cause conflicts.
-# EXPOSE 5000
+# cd ${HOME}/Documents/code/DeepDrummer
+# docker build -f Dockerfile.deepdrummer -t deepdrummer .
+# docker run -it -p 5000:5000 deepdrummer bash /var/local/src/DeepDrummer/start_web_server.sh
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-ENV FLASK_APP=deepgroove_web_user_experiment.deepgroove_web_user_experiment
-ENV FLASK_DEBUG=1
-ENV FLASK_RUN_PORT=8080
 
-# We'll set up something later so that this runs automatically,
-# but right now it's very convenient to leave it like that for debugging.
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y python3-pip libsndfile1-dev libasound-dev libportaudio2
+RUN pip3 install gunicorn sounddevice soundfile
 
-# bash /var/local/src/deepgroove_user_exp/start_test_server.sh
+# These are the dependencies for the DeepDrummer package. Might as well enumerate them
+# and install them here to save ourselves the 5-10 minute docker build process each time.
+RUN pip3 install numpy torch torchaudio six soundfile sounddevice scipy matplotlib
+
+RUN pip3 install flask
+
+COPY . /var/local/src/DeepDrummer
+RUN pip3 install /var/local/src/DeepDrummer
+
+# bash /var/local/src/DeepDrummer/start_web_server.sh

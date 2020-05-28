@@ -9,14 +9,14 @@ DeepDrummer is composed of three main components:
 
 The critic network takes a drum loop's raw audio preprocessed as MFCC features, and then applies successive layers of convolutions in order to finally output its prediction about the probability that the user will *like* the drum loop.
 
-<div style="width:400px;">
+<div style="width:400px;margin-left:50px;">
 
 ![DeepDrummer critic neural network](images/critic_model_diagram.png)
 </div>
 
 The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered.
 
-<div style="width:400px;">
+<div style="width:400px;margin-left:50px;">
 
 ![DeepDrummer generator sequence grid](images/deepdrummer-16-step-pattern.png)
 </div>
@@ -25,7 +25,7 @@ We choose a very basic generator that does not have any trainable parameters, an
 
 Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. As a result, the interface will present only the most relevant drum loops to the user for rating.
 
-<div style="width:200px;">
+<div style="width:200px;margin-left:50px;">
 
 ![Interface for web experiment](images/traced_screencap_likedislike.png)
 </div>
@@ -82,6 +82,15 @@ The interactive experiment that we ran with DeepDrummer can be reproduced
 by running everything in a Docker container and connecting to it through
 a web browser (preferably Chrome).
 
+```bash
+git clone git@github.com:mila-iqia/DeepDrummer.git .
+cd DeepDrummer
+docker build -f Dockerfile.deepdrummer -t deepdrummer .
+# by default we are exposing the port 5000 for the http server
+docker run -it -p 5000:5000 deepdrummer bash /var/local/src/DeepDrummer/start_web_server.sh
+```
+Then you connect to http://127.0.0.1:5000 with a web browser.
+
 ## GPU or CPU
 
 It is better to run the Docker container on a machine with an Nvidia GPU,
@@ -90,6 +99,19 @@ It runs also fine on CPU only, but this can add delays and unresponsiveness
 in the interaction through the web browser.
 In practice, we found that [TODO : essayer l'expérience pour voir et pour
 pouvoir dire à quel point c'est raisonnable ou pas du tout].
+
+As documented on https://github.com/NVIDIA/nvidia-docker, it is possible
+to configure Docker to use GPUs. After some updates to Docker, this
+can be done with just a flag. You can test your setup with the following command:
+```bash
+docker run --gpus all nvidia/cuda:10.0-base nvidia-smi
+```
+Similarly, you can run DeepDrummer with a GPU by using
+```bash
+docker run -it -p 5000:5000 deepdrummer bash /var/local/src/DeepDrummer/start_web_server.sh
+```
+
+
 
 ## Build and run the Docker container
 
