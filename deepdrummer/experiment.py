@@ -104,7 +104,8 @@ class Experiment:
             p_dropout=self.dropout
         )
 
-        model.cuda()
+        if torch.cuda.is_available():
+            model.cuda()
 
         # If we should copy the parameters from another model
         if copy_model is not None:
