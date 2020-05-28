@@ -32,7 +32,11 @@ Combined together, the feedback from the critic can serve as a powerful filter f
 
 We show a demonstration of all the pieces working together in the following YouTube video.
 
-[TODO : Embed YouTube video here.]
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=EPKsUf5YBeM">
+    <img src="https://img.youtube.com/vi/EPKsUf5YBeM/0.jpg" alt="DeepDrummer Demo">
+  </a>
+</div>
 
 The novelty of the method comes from the fact that all the learning capacity of the pipeline goes into the critic neural network instead of the generator. Because the critic network takes audio as input, we can also kickstart it
 with existing library of music that the generator would not even be able to produce. A critic network trained on a higher-level representation (e.g. music notes) would not have access to such a wide catalog of popular music.
