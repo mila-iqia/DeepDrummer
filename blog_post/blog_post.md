@@ -21,31 +21,31 @@ The generator is a function that outputs random grid sequencer patterns with 16 
 ![DeepDrummer generator sequence grid](images/deepdrummer-16-step-pattern.png)
 </div>
 
-We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure.
+We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure. We selected drum sounds from a wide variety of one-shot samples without categorizing into predefined roles as *kick*, *snare*, *hi-hat*, and so on.
 
 Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. As a result, the interface will present only the most relevant drum loops to the user for rating.
 
-<div style="width:200px;margin-left:50px;">
+<div style="width:150px;margin-left:50px;">
 
 ![Interface for web experiment](images/traced_screencap_likedislike.png)
 </div>
 
-
 We show a demonstration of all the pieces working together in the following YouTube video.
 
-EMBED YOUTUBE VIDEO HERE.
+[TODO : Embed YouTube video here.]
 
 The novelty of the method comes from the fact that all the learning capacity of the pipeline goes into the critic neural network instead of the generator. Because the critic network takes audio as input, we can also kickstart it
 with existing library of music that the generator would not even be able to produce. A critic network trained on a higher-level representation (e.g. music notes) would not have access to such a wide catalog of popular music.
 
 Note that in our practical experiment we preprocessed the input audio as MFCC features, but this is simply a decision from hyperparameter search and not a fundamental design choice.
 
-[TODO : Note on generalizing across sounds.]
+One of the advantages of DeepDrummer working directly with audio is that it can also generalize across drum sounds. DeepDrummer does not have any notion of what a *kick* is, but it can learn that the user likes a certain kind of audio signal, and it can draw from a large collection of one-shot samples to find candidates that sound similar.
 
 # Experiment
 
-We ran an experiment with 25 participants to demonstrate that DeepDrummer
-that meaningful gains are made with only 80 interactions (binary *like* or *dislike*).
+We run an experiment with 25 participants to demonstrate that 
+meaningful gains are made with only 80 interactions (binary *like* or *dislike*).
+To investigate this, we need to track some quantities that would reflect the improvement.
 For each user we are interested in the proportion of drum loops that are *liked* at the beginning
 (no training) versus at the end (after 80 ratings plus training).
 We call these quantities `init_theta[i]` and `final_theta[i]` for user i,
@@ -54,42 +54,67 @@ We also look at `delta_theta[i] = final_theta[i] - init_theta[i]`,
 which corresponds to the actual improvement for that user.
 
 In the following plot we compare the distributions of `init_theta` and `final_theta`,
-using smoothing kernel to represent the pdfs (i.e. it's just a smoothed histogram).
+using smoothing kernel to represent the pdfs (i.e. these are simply smoothed histograms).
 We can visually see that there was a general measurable improvement of the quality
-of the drum loops over the interactions with the user.
+of the drum loops over the course of interacting with the user.
 
 <div style="width:450px;margin-left:50px;">
 
 ![init theta and final theta](images/distribution_user_probabilities_of_like_0.07.png)
 </div>
 
-We can look at the individual differences `delta_theta[i]` as well
-to see the improvements for each user.
+In the next plot we look at the differences `delta_theta[i]`
+to see the individual improvement for each user.
 
 <div style="width:450px;margin-left:50px;">
 
 ![init theta and final theta](images/distribution_delta_0.04.png)
 </div>
 
-As can be seen, based on the fact that most of the values in the above diagram are
-larger than 0.0, there is a clear improvement over the course of training.
-It's worth acknowledging that, for about 28% of users, no improvement was observed.
-Our personal experience with DeepDrummer is that there are certain times
-where it fails to obtain good early recommendations that
-would orient it in a promising direction. The opposite can also happen
-if it accidentally lands on a vein of good drum loops and
-it's going to spend all its time exploring neighbors of those intial drum loops.
-In the early experiments during the development of DeepDrummer,
-we found challenging at first to be consistent with what we *liked*.
+We see a clear improvement over the course of training
+based on the fact that most of the values in the above diagram are
+larger than zero.
+Even better news is that we have measured 36% of our participants having an improvement of 0.2 or more.
+We find this to be a convincing argument that DeepDrummer is learning
+something meaningful from very few interactions with the users
+despite using very weak priors about musicality.
 
-In terms of actual experimental protocol, we had to split our experiment
-into an interactive Phase I where learning took place, and an evaluation Phase II
-during which we presented the user with drum loops for either init/final model at random.
-This was done to compensate for possible shifts in the
-attitude of the users, to make sure that our measurements were not
-going to be biased positively (or negatively) by the possibility
-that users might tend to rate drum loops higher (or lower) on average after
-10 minutes of clicking. More on this can be found in our paper.
+## Failure cases
+
+It's worth acknowledging that, for about 28% of users, no improvement was observed.
+To explain the failure cases,
+we turn to our own personal experience with DeepDrummer.
+We have observed that there are certain times
+where it fails to obtain good early recommendations that
+would orient it in a promising direction. This means that the
+learning process would take longer and no significant progress
+would be seen during the brief duration of the experiment.
+The opposite can also happen if DeepDrummer accidentally lands
+on a vein of good drum loops and spends most of its time
+exploring neighbors of those intial drum loops.
+In the early experiments during the development of DeepDrummer,
+we also found challenging at first to make up our minds and
+be consistent with what we *liked*.
+
+## About shifting user preferences
+
+We were very concerned about the possibility that the expressed preferences
+of users would evolve during the experiment,
+and that we would mainly capture this shift instead of
+measuring accurately the improvement of DeepDrummer.
+
+We found a way to set up our experimental protocol to
+avoid this phenomenon entirely.
+We split our experiment into an interactive Phase I where learning takes place,
+and an evaluation Phase II during which we present the user with drum loops
+for either the initial or final model at random.
+In Phase II, the user does not know from which model
+the drum loops are coming from, so they cannot purposefully or
+subconsciously try to influence the results.
+The fact that the drum loops from the two models
+are presented in an intervowen way nullifies the
+effects the shifting preferences.
+More on this can be found in our paper.
 
 # Fun samples
 
@@ -124,7 +149,7 @@ in order to have DeepDrummer synthesize candidates for the most universally-appr
 
 # Dataset released
 
-Briefly describe the dataset that we're publishing, and give the download link. Make it sound like it's a contribution in its own right, but don't sell it too hard because we don't want to eclipse the actual core DeepDrummer.
+[TODO : Briefly describe the dataset that we're publishing, and give the download link. Make it sound like it's a contribution in its own right, but don't sell it too hard because we don't want to eclipse the actual core DeepDrummer.]
 
 # Running the code
 
