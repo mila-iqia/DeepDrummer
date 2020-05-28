@@ -35,7 +35,12 @@ We show a demonstration of all the pieces working together in the following YouT
 
 EMBED YOUTUBE VIDEO HERE.
 
-[Should we explain the novelty in more explicit terms?]
+The novelty of the method comes from the fact that all the learning capacity of the pipeline goes into the critic neural network instead of the generator. Because the critic network takes audio as input, we can also kickstart it
+with existing library of music that the generator would not even be able to produce. A critic network trained on a higher-level representation (e.g. music notes) would not have access to such a wide catalog of popular music.
+
+Note that in our practical experiment we preprocessed the input audio as MFCC features, but this is simply a decision from hyperparameter search and not a fundamental design choice.
+
+[TODO : Note on generalizing across sounds.]
 
 # Experiment
 
@@ -43,7 +48,8 @@ We ran an experiment with 25 participants to demonstrate that DeepDrummer
 that meaningful gains are made with only 80 interactions (binary *like* or *dislike*).
 For each user we are interested in the proportion of drum loops that are *liked* at the beginning
 (no training) versus at the end (after 80 ratings plus training).
-We call these quantities `init_theta[i]` and `final_theta[i]` for user i.
+We call these quantities `init_theta[i]` and `final_theta[i]` for user i,
+which can each be interpreted as the MLE of the parameter for a Bernouilli distribution.
 We also look at `delta_theta[i] = final_theta[i] - init_theta[i]`,
 which corresponds to the actual improvement for that user.
 
@@ -52,12 +58,29 @@ using smoothing kernel to represent the pdfs (i.e. it's just a smoothed histogra
 We can visually see that there was a general measurable improvement of the quality
 of the drum loops over the interactions with the user.
 
-<img src="images/distribution_user_probabilities_of_like_0.07.png" alt="init theta and final theta" width="500"/>
+<div style="width:450px;margin-left:50px;">
+
+![init theta and final theta](images/distribution_user_probabilities_of_like_0.07.png)
+</div>
 
 We can look at the individual differences `delta_theta[i]` as well
-to see the improvements for each users.
+to see the improvements for each user.
 
-<img src="images/distribution_delta_0.04.png" alt="delta theta" width="500"/>
+<div style="width:450px;margin-left:50px;">
+
+![init theta and final theta](images/distribution_delta_0.04.png)
+</div>
+
+As can be seen, based on the fact that most of the values in the above diagram are
+larger than 0.0, there is a clear improvement over the course of training.
+It's worth acknowledging that, for about 28% of users, no improvement was observed.
+Our personal experience with DeepDrummer is that there are certain times
+where it fails to obtain good early recommendations that
+would orient it in a promising direction. The opposite can also happen
+if it accidentally lands on a vein of good drum loops and
+it's going to spend all its time exploring neighbors of those intial drum loops.
+In the early experiments during the development of DeepDrummer,
+we found challenging at first to be consistent with what we *liked*.
 
 In terms of actual experimental protocol, we had to split our experiment
 into an interactive Phase I where learning took place, and an evaluation Phase II
@@ -70,7 +93,34 @@ that users might tend to rate drum loops higher (or lower) on average after
 
 # Fun samples
 
-Show best/worse samples from participants, and some of our own favorites.
+We provide many samples in the dataset that we released, but here are a few
+of the samples that we encountered and that we liked.
+
+[TODO : As much as I can put html for the div elements, it seems that I can't do the same thing with .wav files. Find out the best to showcase them.]
+
+```
+<audio controls>
+  <source src="drum_loops_selection/like_tmp8s0e3v61.wav" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+<audio controls>
+  <source src="drum_loops_selection/like_tmp0p4uf8w2.wav" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+<audio controls>
+  <source src="drum_loops_selection/like_tmp429b3xfg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+<audio controls>
+  <source src="drum_loops_selection/like_tmpvq4q_u9n.wav" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+```
+
+For fun, we also tried to use all the ratings from all the 25 participants
+in order to have DeepDrummer synthesize candidates for the most universally-appreciated drum loops.
+
+[TODO : Put them here.]
 
 # Dataset released
 
