@@ -21,9 +21,9 @@ The generator is a function that outputs random grid sequencer patterns with 16 
 ![DeepDrummer generator sequence grid](images/deepdrummer-16-step-pattern.png)
 </div>
 
-We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure. We selected drum sounds from a wide variety of one-shot samples without categorizing into predefined roles as *kick*, *snare*, *hi-hat*, and so on.
+We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure. We selected drum sounds from a wide variety of one-shot samples without categorizing them into predefined roles as *kick*, *snare*, *hi-hat*, and so on.
 
-Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. As a result, the interface will present only the most relevant drum loops to the user for rating.
+Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. DeepDrummer can perform hill climing on drum patterns in order to please the critic (which serves as proxy for the user). As a result, the interface will present only the most relevant drum loops to the user for rating.
 
 <div style="width:150px;margin-left:50px;">
 
