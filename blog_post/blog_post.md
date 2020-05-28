@@ -141,6 +141,12 @@ docker run -it -p 5000:5000 deepdrummer bash /var/local/src/DeepDrummer/start_we
 ```
 Then you connect to http://127.0.0.1:5000 with a web browser.
 
+Naturally, DeepDrummer works fine outside of a Docker container.
+You can refer to `Dockerfile.deepdrummer` to have a better idea of what
+the requirements are.
+
+[TODO : Once it works, try it out on OSX so we can actually say that we made it work on OSX.]
+
 ## GPU or CPU
 
 It is better to run the Docker container on a machine with an Nvidia GPU,
@@ -161,19 +167,17 @@ Similarly, you can run DeepDrummer with a GPU by using
 docker run -it -p 5000:5000 deepdrummer bash /var/local/src/DeepDrummer/start_web_server.sh
 ```
 
-
-
-## Build and run the Docker container
-
-[TODO : S'assurer qu'on expose bien les données à la fin en permettant de les télécharger.]
+[TODO : Once the web server works in Docker, I can test drive this thing and make sure that the commands and flags are correct.]
 
 ## Starting from pre-trained model
 
-[TODO : Cette section ne sera peut-être pas incluse.]
+[TODO : Remove this section once we're sure we don't want to do it.]
 
 # Links
 
+[TODO : We can do this section once we have the green light to publish the paper on arXiv and the advertise the YouTube link.]
+
 Reminder about links for arXiv, github, youtube and dataset, even though the links were given in the previous sections.
 
-bibtex to cite us
+Bibtex to cite us.
 
