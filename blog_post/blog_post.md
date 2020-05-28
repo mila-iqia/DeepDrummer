@@ -57,6 +57,7 @@ In the following plot we compare the distributions of `init_theta` and `final_th
 using smoothing kernel to represent the pdfs (i.e. these are simply smoothed histograms).
 We can visually see that there was a general measurable improvement of the quality
 of the drum loops over the course of interacting with the user.
+Values of theta closer to 1.0 are more desirable.
 
 <div style="width:450px;margin-left:50px;">
 
@@ -65,6 +66,7 @@ of the drum loops over the course of interacting with the user.
 
 In the next plot we look at the differences `delta_theta[i]`
 to see the individual improvement for each user.
+Positive values are desirable.
 
 <div style="width:450px;margin-left:50px;">
 
@@ -77,7 +79,7 @@ larger than zero.
 Even better news is that we have measured 36% of our participants having an improvement of 0.2 or more.
 We find this to be a convincing argument that DeepDrummer is learning
 something meaningful from very few interactions with the users
-despite using very weak priors about musicality.
+despite using very weak priors on musicality.
 
 ## Failure cases
 
@@ -87,14 +89,18 @@ we turn to our own personal experience with DeepDrummer.
 We have observed that there are certain times
 where it fails to obtain good early recommendations that
 would orient it in a promising direction. This means that the
-learning process would take longer and no significant progress
+learning process would take longer, and no significant progress
 would be seen during the brief duration of the experiment.
 The opposite can also happen if DeepDrummer accidentally lands
 on a vein of good drum loops and spends most of its time
 exploring neighbors of those intial drum loops.
-In the early experiments during the development of DeepDrummer,
-we also found challenging at first to make up our minds and
+Another potential pitfall that we have observed
+in the early experiments during the development of DeepDrummer
+is that we found challenging initially to make up our minds and
 be consistent with what we *liked*.
+We ourselves got better at this task,
+but for all our participants it was the first time
+that they interacted with DeepDrummer.
 
 ## About shifting user preferences
 
