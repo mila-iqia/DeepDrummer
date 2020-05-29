@@ -25,9 +25,8 @@ We choose a very basic generator that does not have any trainable parameters, an
 
 Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. DeepDrummer can perform hill climing on drum patterns in order to please the critic (which serves as proxy for the user). As a result, the interface will present only the most relevant drum loops to the user for rating.
 
-<div style="width:150px;margin-left:50px;">
-
-![Interface for web experiment](images/traced_screencap_likedislike.png)
+<div align="center">
+  <img src="images/traced_screencap_likedislike.png" width="450" alt="Interface for web experiment">
 </div>
 
 We show a demonstration of all the pieces working together in the following YouTube video.
