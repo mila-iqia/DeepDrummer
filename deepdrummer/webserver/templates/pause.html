@@ -43,15 +43,29 @@
 
                 let proceedBtn = document.getElementById('proceed_btn');
 
+                let submitted = false;
+
                 proceedBtn.onclick = function (evt)
                 {
+                    if (submitted)
+                    {
+                        console.log('Form already submitted, prevent form submission');
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        proceedBtn.blur();
+                        return;
+                    }
+
                     // Make sure the user answers the question
                     var radios = document.getElementsByTagName('input');
                     for (var i = 0; i < radios.length; i++)
                     {
                         if (radios[i].type === 'radio' && radios[i].checked)
                         {
-                            return;       
+                            // Track that the form was submitted
+                            submitted = true;
+
+                            return;
                         }
                     }
 
