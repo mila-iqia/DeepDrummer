@@ -171,15 +171,16 @@ git clone git@github.com:mila-iqia/DeepDrummer.git .
 cd DeepDrummer
 docker build -f Dockerfile.deepdrummer -t deepdrummer .
 # by default we are exposing the port 5000 for the http server
-docker run -it -p 5000:5000 deepdrummer bash /var/local/src/DeepDrummer/start_web_server.sh
+docker run -it --rm -p 5000:5000 deepdrummer bash -c 'cd /var/local/src/DeepDrummer; bash /var/local/src/DeepDrummer/start_web_server.sh'
 ```
 Then you connect to http://127.0.0.1:5000 with a web browser.
+The web server is designed to recognize the user through cookies,
+so if you want to run the experiment more than once with the same browser,
+you need to go to http://127.0.0.1:5000/logout to start over.
 
 Naturally, DeepDrummer works fine outside of a Docker container.
 You can refer to `Dockerfile.deepdrummer` to have a better idea of what
 the requirements are.
-
-[TODO : Once it works, try it out on OSX so we can actually say that we made it work on OSX.]
 
 ## GPU or CPU
 
@@ -187,8 +188,9 @@ It is better to run the Docker container on a machine with an Nvidia GPU,
 but the computational load is rather light so it does not require a powerful GPU.
 It runs also fine on CPU only, but this can add delays and unresponsiveness
 in the interaction through the web browser.
-In practice, we found that [TODO : essayer l'expérience pour voir et pour
-pouvoir dire à quel point c'est raisonnable ou pas du tout].
+In practice, we found that running on a single CPU in Docker
+could introduce a delay of 30 seconds between each drum loop,
+whereas with a GPU it was barely noticeable.
 
 As documented on https://github.com/NVIDIA/nvidia-docker, it is possible
 to configure Docker to use GPUs. After some updates to Docker, this

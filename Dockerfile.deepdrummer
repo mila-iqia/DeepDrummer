@@ -6,7 +6,7 @@ FROM ubuntu:18.04
 
 # cd ${HOME}/Documents/code/DeepDrummer
 # docker build -f Dockerfile.deepdrummer -t deepdrummer .
-# docker run -it -p 5000:5000 deepdrummer bash -c 'cd /var/local/src/DeepDrummer; bash /var/local/src/DeepDrummer/start_web_server.sh'
+# docker run -it --rm -p 5000:5000 deepdrummer bash -c 'cd /var/local/src/DeepDrummer; bash /var/local/src/DeepDrummer/start_web_server.sh'
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
