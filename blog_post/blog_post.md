@@ -10,13 +10,13 @@ DeepDrummer is composed of three main components:
 The critic network takes a drum loop's raw audio preprocessed as MFCC features, and then applies successive layers of convolutions in order to finally output its prediction about the probability that the user will *like* the drum loop.
 
 <div align="center">
-  <img src="images/critic_model_diagram.png" width="50%" alt="DeepDrummer critic neural network">
+  <img src="images/critic_model_diagram.png" width="75%" alt="DeepDrummer critic neural network">
 </div>
 
 The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered.
 
 <div align="center">
-  <img src="images/deepdrummer-16-step-pattern.png" width="50%" alt="DeepDrummer generator sequence grid">
+  <img src="images/deepdrummer-16-step-pattern.png" width="75%" alt="DeepDrummer generator sequence grid">
 </div>
 
 We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure. We selected drum sounds from a wide variety of one-shot samples without categorizing them into predefined roles as *kick*, *snare*, *hi-hat*, and so on.
@@ -128,6 +128,16 @@ We provide many samples in the dataset that we released, but here are a few
 of the samples that we encountered and that we liked.
 
 [TODO : As much as I can put html for the div elements, it seems that I can't do the same thing with .wav files. Find out the best to showcase them.]
+
+<div>
+<audio controls>
+  <source src="drum_loops_selection/like_tmp8s0e3v61.wav" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+</div>
+
+* [like](drum_loops_selection/like_tmp8s0e3v61.wav)
+* [like](drum_loops_selection/like_tmp0p4uf8w2.wav)
 
 ```
 <audio controls>
