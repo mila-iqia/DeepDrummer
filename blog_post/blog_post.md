@@ -16,9 +16,8 @@ The critic network takes a drum loop's raw audio preprocessed as MFCC features, 
 
 The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered.
 
-<div style="width:400px;margin-left:50px;">
-
-![DeepDrummer generator sequence grid](images/deepdrummer-16-step-pattern.png)
+<div align="center">
+  <img src="images/deepdrummer-16-step-pattern.png" width="400" alt="DeepDrummer generator sequence grid">
 </div>
 
 We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure. We selected drum sounds from a wide variety of one-shot samples without categorizing them into predefined roles as *kick*, *snare*, *hi-hat*, and so on.
