@@ -9,15 +9,14 @@ DeepDrummer is composed of three main components:
 
 The critic network takes a drum loop's raw audio preprocessed as MFCC features, and then applies successive layers of convolutions in order to finally output its prediction about the probability that the user will *like* the drum loop.
 
-<div style="width:400px;margin-left:50px;">
-
-![DeepDrummer critic neural network](images/critic_model_diagram.png)
+<div align="center">
+  <img src="images/critic_model_diagram.png" width="50%" alt="DeepDrummer critic neural network">
 </div>
 
 The generator is a function that outputs random grid sequencer patterns with 16 time steps during which 4 randomly-selected drum sounds can be triggered.
 
 <div align="center">
-  <img src="images/deepdrummer-16-step-pattern.png" width="400" alt="DeepDrummer generator sequence grid">
+  <img src="images/deepdrummer-16-step-pattern.png" width="50%" alt="DeepDrummer generator sequence grid">
 </div>
 
 We choose a very basic generator that does not have any trainable parameters, and constitutes a source of patterns that has few priors on musical structure. We selected drum sounds from a wide variety of one-shot samples without categorizing them into predefined roles as *kick*, *snare*, *hi-hat*, and so on.
@@ -25,7 +24,7 @@ We choose a very basic generator that does not have any trainable parameters, an
 Combined together, the feedback from the critic can serve as a powerful filter for the output of the generator. DeepDrummer can perform hill climing on drum patterns in order to please the critic (which serves as proxy for the user). As a result, the interface will present only the most relevant drum loops to the user for rating.
 
 <div align="center">
-  <img src="images/traced_screencap_likedislike.png" width="450" alt="Interface for web experiment">
+  <img src="images/traced_screencap_likedislike.png" width="30%" alt="Interface for web experiment">
 </div>
 
 We show a demonstration of all the pieces working together in the following YouTube video.
@@ -61,19 +60,18 @@ We can visually see that there was a general measurable improvement of the quali
 of the drum loops over the course of interacting with the user.
 Values of theta closer to 1.0 are more desirable.
 
-<div style="width:450px;margin-left:50px;">
-
-![init theta and final theta](images/distribution_user_probabilities_of_like_0.07.png)
+<div align="center">
+  <img src="images/distribution_user_probabilities_of_like_0.07.png" width="60%" alt="init theta and final theta">
 </div>
 
 In the next plot we look at the differences `delta_theta[i]`
 to see the individual improvement for each user.
 Positive values are desirable.
 
-<div style="width:450px;margin-left:50px;">
-
-![init theta and final theta](images/distribution_delta_0.04.png)
+<div align="center">
+  <img src="images/distribution_delta_0.04.png" width="60%" alt="init theta and final theta">
 </div>
+
 
 We see a clear improvement over the course of training
 based on the fact that most of the values in the above diagram are
