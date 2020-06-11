@@ -58,7 +58,8 @@ In the following plot we compare the distributions of `init_theta` and `final_th
 using smoothing kernel to represent the pdfs (i.e. these are simply smoothed histograms).
 We can visually see that there was a general measurable improvement of the quality
 of the drum loops over the course of interacting with the user.
-Values of theta closer to 1.0 are more desirable.
+Values of theta closer to 1.0 are more desirable as they mean that
+the user *likes* the drum loops more.
 
 <div align="center">
   <img src="images/distribution_user_probabilities_of_like_0.07.png" width="60%" alt="init theta and final theta">
@@ -96,7 +97,7 @@ on a vein of good drum loops and spends most of its time
 exploring neighbors of those intial drum loops.
 Another potential pitfall that we have observed
 in the early experiments during the development of DeepDrummer
-is that we found challenging initially to make up our minds and
+is that we found it challenging initially to make up our minds and
 be consistent with what we *liked*.
 We ourselves got better at this task,
 but for all our participants it was the first time
@@ -113,7 +114,7 @@ We found a way to set up our experimental protocol to
 avoid this phenomenon entirely.
 We split our experiment into an interactive Phase I where learning takes place,
 and an evaluation Phase II during which we present the user with drum loops
-for either the initial or final model at random.
+at random from either the initial or final model.
 In Phase II, the user does not know from which model
 the drum loops are coming from, so they cannot purposefully or
 subconsciously try to influence the results.
@@ -163,7 +164,7 @@ in order to have DeepDrummer synthesize candidates for the most universally-appr
 # Running the code
 
 The interactive experiment that we ran with DeepDrummer can be reproduced
-by running everything in a Docker container and connecting to it through
+by running everything in a Docker container and connecting to http://127.0.0.1:5000 through
 a web browser (preferably Chrome).
 
 ```bash
@@ -173,41 +174,34 @@ docker build -f Dockerfile.deepdrummer -t deepdrummer .
 # by default we are exposing the port 5000 for the http server
 docker run -it --rm -p 5000:5000 deepdrummer bash -c 'cd /var/local/src/DeepDrummer; bash /var/local/src/DeepDrummer/start_web_server.sh'
 ```
-Then you connect to http://127.0.0.1:5000 with a web browser.
-The web server is designed to recognize the user through cookies,
-so if you want to run the experiment more than once with the same browser,
-you need to go to http://127.0.0.1:5000/logout to start over.
 
 Naturally, DeepDrummer works fine outside of a Docker container.
-You can refer to `Dockerfile.deepdrummer` to have a better idea of what
-the requirements are.
+The exact requirements for this can be found by looking at
+the file `Dockerfile.deepdrummer`.
 
 ## GPU or CPU
 
 It is better to run the Docker container on a machine with an Nvidia GPU,
 but the computational load is rather light so it does not require a powerful GPU.
 It runs also fine on CPU only, but this can add delays and unresponsiveness
-in the interaction through the web browser.
+in the interaction through the web browser
+(most noticeably in the moment before phase II starts).
 In practice, we found that running on a single CPU in Docker
 could introduce a delay of 30 seconds between each drum loop,
 whereas with a GPU it was barely noticeable.
 
 As documented on https://github.com/NVIDIA/nvidia-docker, it is possible
 to configure Docker to use GPUs. After some updates to Docker, this
-can be done with just a flag. You can test your setup with the following command:
+can be done with just a flag. We can test our setup with the following command:
 ```bash
 docker run --gpus all nvidia/cuda:10.0-base nvidia-smi
 ```
-Similarly, you can run DeepDrummer with a GPU by using
+and then we can run DeepDrummer with a GPU by using
 ```bash
-docker run -it -p 5000:5000 deepdrummer bash /var/local/src/DeepDrummer/start_web_server.sh
+docker run -it --rm -p 5000:5000 --gpus all deepdrummer bash -c 'cd /var/local/src/DeepDrummer; bash /var/local/src/DeepDrummer/start_web_server.sh'
 ```
 
 [TODO : Once the web server works in Docker, I can test drive this thing and make sure that the commands and flags are correct.]
-
-## Starting from pre-trained model
-
-[TODO : Remove this section once we're sure we don't want to do it.]
 
 # Links
 
