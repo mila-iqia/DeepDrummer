@@ -127,14 +127,7 @@ More on this can be found in our paper.
 We provide many samples in the dataset that we released, but here are a few
 of the samples that we encountered and that we liked.
 
-[TODO : As much as I can put html for the div elements, it seems that I can't do the same thing with .wav files. Find out the best to showcase them.]
-
-<div>
-<audio controls>
-  <source src="drum_loops_selection/like_tmp8s0e3v61.wav" type="audio/ogg">
-Your browser does not support the audio element.
-</audio>
-</div>
+[TODO : As much as I can put html for the div elements, it seems that I can't do the same thing with .wav files. Find out the best to showcase them. The solution might be dependent on where we want to publish this.]
 
 * [like](drum_loops_selection/like_tmp8s0e3v61.wav)
 * [like](drum_loops_selection/like_tmp0p4uf8w2.wav)
