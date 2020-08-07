@@ -8,9 +8,10 @@ Dependencies:
 - torchaudio
 - soundfile
 - sounddevice
-- NumPy
+- numpy
 - matplotlib
 - scipy
+- six
 - tkinter
 
 Installation:
