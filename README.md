@@ -3,7 +3,7 @@
 DeepDrummer is a drum machine that uses a deep learning model to generate drum loops. The model is trained interactively based on user ratings (like/dislike), and tries to approximate user preferences. It is a tool for quickly exploring new musical ideas.
 
 <p align="center">
-A video showcasing DeepDrummer in action is available on YouTube:
+A video showcasing DeepDrummer in action is available on YouTube:<br>
 <a href="https://www.youtube.com/watch?v=EPKsUf5YBeM"><img src="https://img.youtube.com/vi/EPKsUf5YBeM/0.jpg" alt="DeepDrummer demo video"></a>
 </p>
 
